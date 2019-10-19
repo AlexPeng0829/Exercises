@@ -7,7 +7,11 @@ MAX_CONNECTION = 1
 
 def Serve_Single_Client(Conn_Socket=None):
     message = Conn_Socket.recv(BUFFER_SIZE).decode()
-    print(message)
+    if len(message) == 0:
+        print("Empty message from client, skip!")
+    Conn_Socket.close()
+    return
+    
     request_type = message.split()[0]
     filename = message.split()[1]
     try:
@@ -43,6 +47,7 @@ def main():
         kThread = threading.Thread(target=Serve_Single_Client, kwargs={'Conn_Socket':Conn_Socket})
         kThread.start()
     Server_Socket.close()
+    sys.exit()
 
 if __name__ == "__main__":
     main()
