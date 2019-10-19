@@ -7,10 +7,11 @@ MAX_CONNECTION = 1
 
 def Serve_Single_Client(Conn_Socket=None):
     message = Conn_Socket.recv(BUFFER_SIZE).decode()
-    if len(message) == 0:
-        print("Empty message from client, skip!")
-    Conn_Socket.close()
-    return
+    print(message)
+    # if len(message) == 0:
+    #     print("Empty message from client, skip!")
+    # Conn_Socket.close()
+    # return
     
     request_type = message.split()[0]
     filename = message.split()[1]
